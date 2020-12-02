@@ -23,7 +23,7 @@ def valid1(a, b, c, s):
 
 # Is s a valid password for part 2?
 def valid2(a, b, c, s):
-    return sum([s[a-1]==c, s[b-1]==c]) == 1
+    return (s[a-1]==c) + (s[b-1]==c) == 1
 
 # Solve part 1
 print(sum(valid1(*t) for t in data))
