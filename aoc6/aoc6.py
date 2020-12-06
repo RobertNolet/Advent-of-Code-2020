@@ -11,7 +11,7 @@ from functools import reduce
 data = [list(map(set, group.split())) for group in open('input.txt').read().split('\n\n')]
 
 # Part 1
-print(sum(len(reduce(lambda x,y: x.union(y), group)) for group in data))
+print(sum(len(set.union(*group)) for group in data))
 
 # Part 2
-print(sum(len(reduce(lambda x,y: x.intersection(y), group)) for group in data))
+print(sum(len(set.intersection(*group)) for group in data))
