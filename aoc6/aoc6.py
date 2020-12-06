@@ -6,8 +6,6 @@ Created on Sun Dec  6 09:48:17 2020
 @author: robertnolet
 """
 
-from functools import reduce
-
 data = [list(map(set, group.split())) for group in open('input.txt').read().split('\n\n')]
 
 # Part 1
