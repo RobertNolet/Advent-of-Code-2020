@@ -32,6 +32,8 @@ def numContain(bag):
     if bagdata[bag] == []: return 0
     return sum(n + n*numContain(b) for n,b in bagdata[bag])
 
+# Part 1
 print(sum(canContain(b, 'shiny gold') for b in bagdata))
 
+# Part 2
 print(numContain('shiny gold'))                     
