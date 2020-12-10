@@ -8,7 +8,7 @@ Created on Thu Dec 10 09:25:03 2020
 
 import numpy as np
 from itertools import groupby
-from functools import reduce
+from math import prod
 
 data = np.diff(np.sort(list(map(int, open('input.txt'))) + [0]))
 
@@ -25,5 +25,6 @@ def count(n):
     if n not in counts: counts[n] = count(n-1) + count(n-2) + count(n-3)
     return counts[n]
 
-# Part 2
-print(reduce(lambda x,y: x*y, [count(len(list(g))) for v, g in groupby(data) if v == 1]))
+# Part 2 -- Group subsequences of 1 jolt differences, and count the
+# number of ways they can be rearranged.
+print(prod(count(len(list(g))) for v, g in groupby(data) if v == 1))
