@@ -6,11 +6,11 @@ Created on Thu Dec 10 09:25:03 2020
 @author: robertnolet
 """
 
-import numpy as np
+from numpy import diff
 from itertools import groupby
 from math import prod
 
-data = np.diff(np.sort(list(map(int, open('input.txt'))) + [0]))
+data = diff([0] + sorted(map(int, open('input.txt'))))
 
 # Part 1
 print(sum(data == 1)*(sum(data == 3)+1))
