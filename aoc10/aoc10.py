@@ -6,9 +6,8 @@ Created on Thu Dec 10 09:25:03 2020
 @author: robertnolet
 """
 
-from numpy import diff
+from numpy import diff, prod
 from itertools import groupby
-from math import prod
 
 data = diff([0] + sorted(map(int, open('input.txt'))))
 
@@ -27,4 +26,4 @@ def count(n):
 
 # Part 2 -- Group subsequences of 1 jolt differences, and count the
 # number of ways they can be rearranged.
-print(prod(count(len(list(g))) for v, g in groupby(data) if v == 1))
+print(prod([count(len(list(g))) for v, g in groupby(data) if v == 1]))
