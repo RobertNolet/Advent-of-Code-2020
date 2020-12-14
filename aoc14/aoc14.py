@@ -8,7 +8,6 @@ Created on Mon Dec 14 09:27:59 2020
 
 import re
 from functools import reduce
-from itertools import combinations
 
 def setBit(x, i, to):
     if to == 0: return x & (2**36-1-2**(35-i))
@@ -23,20 +22,6 @@ def maskAddrs(mask, addr, start=0):
     if mask[start] == '0': return maskAddrs(mask, addr, start+1)
     if mask[start] == '1': return maskAddrs(mask, setBit(addr, start, 1), start+1)
     return maskAddrs(mask, setBit(addr, start, 0), start+1).union(maskAddrs(mask, setBit(addr, start, 1), start+1))
-    
-    
-def maskAddr(mask, addr):
-    return ''.join(m if m in '1X' else a for m, a in zip(mask, format(addr, '036b')))
-
-def cover(addrs):
-    if len(addrs) == 1: return 2**sum(c == 'X' for c in addr)
-    if any(c1+c2 in ['01','10'] for c1,c2 in zip(*addrs[0:2])): return 0
-    merge = [c1 if c2 == 'X' else c2 for c1,c2 in zip(*addrs[0:2])]
-    return cover([merge]+addrs[2:])
-    
-    
-def addrEqual(addr1, addr2):
-    return all(c1 == c2 for c1,c2 in zip(addr1, addr2) if c1 != 'X' and c2 != 'X')
                 
 pat = re.compile(r'mask = ([01X]{36})|mem\[(\d+)\] = (\d+)$')
 
@@ -51,7 +36,5 @@ for r in map(pat.match, open('input.txt')):
 print(sum({addr:maskValue(mask, val) for mask,addr,val in data}.values()))
 
 memory = {}
-for mask, addr, val in data:
-    memory.update({a:val for a in maskAddrs(mask, addr)})
+for mask, addr, val in data: memory.update({a:val for a in maskAddrs(mask, addr)})
 print(sum(memory.values()))
- 
